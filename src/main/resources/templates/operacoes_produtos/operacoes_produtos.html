@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+<head>
+    <meta charset="UTF-8">
+    <title>Operações dos Produtos</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/CssProduto/style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/CssProduto/cadastrarProduto.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/CssProduto/buscarPorIdResultado.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/CssProduto/buscarTodosProdutos.css}">
+
+
+    <script src="/JS/JsProdutos/mostrarformulario_produto.js"></script>
+    <script src="/JS/JsProdutos/cadastrarProduto.js"></script>
+    <script src="/JS/JsProdutos/buscaPorProdutoID.js"></script>
+    <script src="/JS/JsProdutos/buscarTodosProdutos.js"></script>
+
+
+</head>
+<body>
+<div class="navbar">
+    <a href="javascript:void(0)" onclick="mostrarFormulario('criarProduto')">Criar Produto</a><br>
+    <a href="javascript:void(0)" onclick="mostrarFormulario('buscarPorId')">Buscar Produto por ID</a><br>
+    <a href="javascript:void(0)" onclick="mostrarFormulario('buscarTodos')">Buscar Todos os Produtos</a><br>
+</div>
+
+<div class="content">
+    <h1>Operações dos Produtos</h1>
+    <hr>
+    <!-- Formulário de criar produto -->
+    <form id="criarProduto" class="formulario" style="display: none;">
+        <label for="nome">Nome do Produto:</label>
+        <input type="text" id="nome" name="nome" placeholder="Nome do Produto"><br>
+        <label for="preco">Preço do Produto:</label>
+        <input type="text" id="preco" name="preco" placeholder="Preço do Produto"><br>
+        <label for="dataValidade">Data de Validade:</label>
+        <input type="date" id="dataValidade" name="dataValidade"><br>
+        <label for="quantidade">Quantidade:</label>
+        <input type="text" id="quantidade" name="quantidade" placeholder="Quantidade"><br>
+        <button type="button" onclick="cadastrarProduto()">Cadastrar</button>
+    </form>
+
+    <!-- Formulário de buscar por ID -->
+    <form id="buscarPorId" class="formulario" style="display: none;">
+        <label>
+            <input type="text" id="idProduto" name="id" placeholder="ID do Produto">
+        </label><br>
+        <button type="button" onclick="buscarProdutoPorId(event)">Buscar</button>
+
+        <div id="resultado"></div>
+
+    </form>
+
+
+    <!-- Formulário de buscar todos -->
+    <form id="buscarTodos" class="formulario" style="display: none;">
+        <p>Lista de todos os produtos...</p>
+        <button type="button" onclick="buscarTodosProdutos()">Buscar Todos</button>
+        <div id="todosProdutos"></div>
+
+    </form>
+</div>
+</body>
+</html>

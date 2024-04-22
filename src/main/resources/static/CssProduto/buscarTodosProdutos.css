@@ -1,0 +1,13 @@
+.produto-info {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px; /* Adiciona espaço entre os produtos */
+}
+
+.produto-info label {
+    font-weight: bold;
+}
+
+.produto-info p {
+    margin: 5px 0; /* Adiciona espaçamento vertical dentro de cada produto */
+}
