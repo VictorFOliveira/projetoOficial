@@ -1,6 +1,7 @@
 package com.GeladaoEstacio.Geladao.web.returnDtos;
 
 import com.GeladaoEstacio.Geladao.entities.Usuario;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -13,6 +14,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Setter
 @Getter
@@ -25,10 +27,8 @@ public class ReturnUsuarioDTO {
     private String email;
     @Enumerated(EnumType.ORDINAL)
     private Usuario.Acesso acesso;
-    private LocalDateTime dataCriacao;
-    private LocalDateTime dataModificacao;
-    private String criadoPor;
-    private String modificadoPor;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    private Date dataCriacao;
     @Enumerated(EnumType.ORDINAL)
     private Usuario.StatusUsuario statusUsuario;
 }

@@ -5,6 +5,7 @@ import com.GeladaoEstacio.Geladao.entities.ItensVendidos;
 import com.GeladaoEstacio.Geladao.entities.Usuario;
 import com.GeladaoEstacio.Geladao.web.dtos.ItensVendidosDTO;
 import com.GeladaoEstacio.Geladao.web.dtos.UsuarioDTO;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,6 +24,7 @@ public class ReturnVendaDTO {
 
     private Long id;
     private UsuarioDTO usuario;
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime dataVenda;
     private List<ReturnItensVendidosDTO> itensVendidos = new ArrayList<>();
     private Double valorTotal;

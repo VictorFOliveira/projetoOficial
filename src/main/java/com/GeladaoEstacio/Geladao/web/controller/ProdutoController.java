@@ -4,6 +4,7 @@ import com.GeladaoEstacio.Geladao.entities.Produto;
 import com.GeladaoEstacio.Geladao.service.ProdutoService;
 import com.GeladaoEstacio.Geladao.web.dtos.ProdutoDTO;
 import com.GeladaoEstacio.Geladao.web.exception.ErrorMessage;
+import com.GeladaoEstacio.Geladao.web.exception.ProdutoException;
 import com.GeladaoEstacio.Geladao.web.returnDtos.ReturnProdutoDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -33,20 +34,7 @@ public class ProdutoController {
     private ProdutoService produtoService;
     @Autowired
     private ModelMapper modelMapper;
-    @Autowired
-    private ResourceLoader resourceLoader;
 
-
-    @GetMapping("/operacoes_produtos")
-    public ModelAndView operacoesProdutosPage() {
-        ModelAndView modelAndView = new ModelAndView("operacoes_produtos/operacoes_produtos");
-        Resource resource = resourceLoader.getResource("classpath:/templates/operacoes_produtos/operacoes_produtos.html");
-        if (!resource.exists()) {
-            modelAndView = new ModelAndView("error/404");
-            modelAndView.setStatus(HttpStatus.NOT_FOUND);
-        }
-        return modelAndView;
-    }
 
     @Operation(summary = "Criar um novo produto", description = "Recurso para criar um novo produto",
             responses = {
@@ -83,6 +71,17 @@ public class ProdutoController {
                 .collect(Collectors.toList());
         return ResponseEntity.status(HttpStatus.OK).body(returnProdutoDTOs);
     }
+
+    @DeleteMapping("/deletarProduto/{id}")
+    public ResponseEntity<String> deleteProduto(@PathVariable Long id) {
+        try {
+            produtoService.deletarProdutoPorId(id);
+            return ResponseEntity.noContent().build();
+        } catch (ProdutoException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não encontrado");
+        }
+    }
+
 }
 
 

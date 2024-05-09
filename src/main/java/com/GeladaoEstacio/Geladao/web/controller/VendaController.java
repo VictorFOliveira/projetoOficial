@@ -42,55 +42,31 @@ public class VendaController {
 
         Venda venda = modelMapper.map(vendaDTO, Venda.class);
         Venda vendaSalva = vendaService.realizarVenda(venda);
+
         if (vendaSalva == null) {
             throw new RuntimeException("Venda não salva");
         }
         ReturnVendaDTO returnVendaDTO = modelMapper.map(vendaSalva, ReturnVendaDTO.class);
         return ResponseEntity.status(HttpStatus.CREATED).body(returnVendaDTO);
-
     }
 
-    @GetMapping("/buscarVendaId/{id}")
-    public ResponseEntity<ReturnVendaDTO> buscarVendaId(@PathVariable Long id) {
-        Venda vendaLocalizada = vendaService.buscarVendaId(id);
-        if (vendaLocalizada == null) {
-            throw new VendaException(VendaException.VENDA_NAO_LOCALIZADA);
+    @GetMapping("/{id}")
+    public ResponseEntity<ReturnVendaDTO> getVendaId(@PathVariable Long id) {
+        Venda venda = vendaService.buscarVendaId(id);
+        if (venda == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        ReturnVendaDTO returnVendaDTO = modelMapper.map(vendaLocalizada, ReturnVendaDTO.class);
+        ReturnVendaDTO returnVendaDTO = modelMapper.map(venda, ReturnVendaDTO.class);
         return ResponseEntity.status(HttpStatus.OK).body(returnVendaDTO);
     }
 
-    @GetMapping("/todasVendas")
-    public ResponseEntity<List<ReturnVendaDTO>> todasAsVendas() {
-        List<Venda> vendas = vendaService.buscarTodasVendas();
-        if (vendas.isEmpty()) {
-            throw new VendaException("Não existem vendas");
-        }
-        List<ReturnVendaDTO> returnVendaDTOList = vendas.stream()
-                .map(venda -> modelMapper.map(venda, ReturnVendaDTO.class))
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(returnVendaDTOList);
-    }
-
-    @GetMapping("/vendasPorUsuario/{usuarioId}")
-    public ResponseEntity<List<ReturnVendaDTO>> buscarVendasPorUsuario(@PathVariable Long usuarioId) {
+    @DeleteMapping("/deletar/{id}")
+    public ResponseEntity<String> excluirVenda(@PathVariable Long id){
         try {
-            Usuario usuario = usuarioService.buscarUser(usuarioId);
-            if (usuario == null) {
-                throw new UsuarioException(UsuarioException.VENDEDOR_NAO_LOCALIZADO);
-            }
-            List<Venda> vendas = vendaService.buscarVendaPorUsuario(usuario);
-            if (vendas.isEmpty()) {
-                throw new VendaException("Não foram encontradas vendas");
-            }
-            List<ReturnVendaDTO> returnVendaDTOList = vendas.stream()
-                    .map(venda -> modelMapper.map(venda, ReturnVendaDTO.class))
-                    .collect(Collectors.toList());
-            return ResponseEntity.ok(returnVendaDTOList);
-        } catch (UsuarioException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        } catch (VendaException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+            String mensagem = vendaService.cancelarVenda(id);
+            return ResponseEntity.ok(mensagem);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 

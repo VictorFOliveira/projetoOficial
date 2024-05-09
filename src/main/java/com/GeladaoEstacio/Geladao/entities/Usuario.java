@@ -9,7 +9,9 @@ import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -41,16 +43,8 @@ public class Usuario implements Serializable {
     @Column(name = "acesso_usuario")
     @Enumerated(EnumType.ORDINAL)
     private Acesso acesso;
-
-
     @Column(name = "data_criacao")
-    private LocalDateTime dataCriacao;
-    @Column(name = "data_modificacao")
-    private LocalDateTime dataModificacao;
-    @Column(name = "criado_por")
-    private String criadoPor;
-    @Column(name = "modificado_por")
-    private String modificadoPor;
+    private Date dataCriacao;
     @Column(name = "status_usuario")
     @Enumerated(EnumType.ORDINAL)
     private StatusUsuario statusUsuario;
@@ -106,5 +100,12 @@ public class Usuario implements Serializable {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+
+    public String getDataCriacaoFormatted() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        return sdf.format(dataCriacao);
+    }
+
 }
 

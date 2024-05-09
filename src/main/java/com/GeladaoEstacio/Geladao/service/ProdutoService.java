@@ -49,24 +49,30 @@ public class ProdutoService {
     }
 
     @Transactional
-    public  void deletarProdutoPorId(Long id){
+    public String deletarProdutoPorId(Long id){
         Produto produto = getProdutoById(id);
         if(produto == null){
             throw new ProdutoException(ProdutoException.PRODUTO_NAO_ENCONTRADO);
         }
-        produtoRepository.delete(produto);
+        if(!(produto == null)){
+            produtoRepository.delete(produto);
+        }
+        return "Produto deletado com sucesso";
     }
 
-    private void validarProduto(Produto produto){
-        if(produto.getPreco() <= 0)
+    private void validarProduto(Produto produto) {
+        if (produto.getPreco() <= 0)
             throw new ProdutoException(ProdutoException.PRODUTO_SEM_PRECO);
-        if(produto.getQuantidade() <= 0)
+        if (produto.getQuantidade() <= 0)
             throw new ProdutoException(ProdutoException.PRODUTO_SEM_QUANTIDADE_OU_ZERADA);
+
         Date dataAtual = new Date();
-        if(produto.getDataValidade() == null){
+
+        if (produto.getDataValidade() == null)
             throw new ProdutoException(ProdutoException.PRODUTO_SEM_DATA_DE_VALIDADE);
-        }
-        if(produto.getDataValidade().before(dataAtual))
+
+        if (produto.getDataValidade().before(dataAtual))
             throw new ProdutoException(ProdutoException.PRODUTO_COM_DATA_MENOR_QUE_DATA_ATUAL);
+
     }
 }

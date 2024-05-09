@@ -101,6 +101,23 @@ public class VendaService {
     public List<Venda> buscarVendaPorUsuario(Usuario usuario) {
         return vendaRepository.findByUsuario(usuario);
     }
+
+    @Transactional
+    public String cancelarVenda(Long id) {
+        Venda venda = buscarVendaId(id);
+        LocalDateTime dataLimite = venda.getDataVenda().plusDays(2);
+        LocalDateTime dataAtual = LocalDateTime.now();
+
+        if (dataAtual.isBefore(dataLimite)) {
+
+            vendaRepository.delete(venda);
+
+            return "Venda deletada... aguardando implementação para apenas cancelamento.";
+        } else {
+            throw new RuntimeException("Não é possível cancelar a venda após o prazo de 2 dias");
+        }
+    }
+
 }
 
 
