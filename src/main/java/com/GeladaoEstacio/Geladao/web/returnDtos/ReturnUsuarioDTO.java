@@ -29,6 +29,13 @@ public class ReturnUsuarioDTO {
     private Usuario.Acesso acesso;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date dataCriacao;
+<<<<<<< HEAD
+=======
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    private LocalDateTime dataModificacao;
+    private String criadoPor;
+    private String modificadoPor;
+>>>>>>> 4c20e66 (alterações finais)
     @Enumerated(EnumType.ORDINAL)
     private Usuario.StatusUsuario statusUsuario;
 }

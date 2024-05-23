@@ -30,10 +30,16 @@ public class UsuarioService {
             throw new UsuarioException(UsuarioException.USUARIO_SEM_EMAIL);
         }
         usuario.setDataCriacao(new Date());
+<<<<<<< HEAD
         usuario.setSenha(SenhaUtils.gerarSenhaAleatoria());
         usuario.setStatusUsuario(Usuario.StatusUsuario.getDefaultStatus());
         usuario.setAcesso(Usuario.Acesso.getDefaultAcesso());
 
+=======
+        usuario.setAcesso(Usuario.Acesso.ACESSO_VENDEDOR);
+        usuario.setStatusUsuario(Usuario.StatusUsuario.getDefaultStatus());
+        usuario.setSenha(SenhaUtils.gerarSenhaAleatoria());
+>>>>>>> 4c20e66 (alterações finais)
         usuarioRepository.save(usuario);
 
         return usuario;
@@ -66,6 +72,14 @@ public class UsuarioService {
         }
         return usuario;
     }
+
+    @Transactional
+    public String excluirUsuario(Long id){
+        Usuario usuario = usuarioRepository.findById(id).orElseThrow(() -> new UsuarioException(UsuarioException.USUARIO_NAO_ENCONTRADO));
+        usuarioRepository.delete(usuario);
+        return "$Usuário deletado {usuario}";
+    }
 }
+
 
 

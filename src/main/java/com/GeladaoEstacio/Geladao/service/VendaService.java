@@ -12,7 +12,6 @@ import com.GeladaoEstacio.Geladao.web.dtos.UsuarioDTO;
 import com.GeladaoEstacio.Geladao.web.exception.ProdutoException;
 import com.GeladaoEstacio.Geladao.web.exception.UsuarioException;
 import com.GeladaoEstacio.Geladao.web.exception.VendaException;
-import net.bytebuddy.asm.Advice;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

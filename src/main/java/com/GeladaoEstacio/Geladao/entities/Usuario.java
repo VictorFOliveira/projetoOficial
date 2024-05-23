@@ -45,6 +45,15 @@ public class Usuario implements Serializable {
     private Acesso acesso;
     @Column(name = "data_criacao")
     private Date dataCriacao;
+<<<<<<< HEAD
+=======
+    @Column(name = "data_modificacao")
+    private LocalDateTime dataModificacao;
+    @Column(name = "criado_por")
+    private String criadoPor;
+    @Column(name = "modificado_por")
+    private String modificadoPor;
+>>>>>>> 4c20e66 (alterações finais)
     @Column(name = "status_usuario")
     @Enumerated(EnumType.ORDINAL)
     private StatusUsuario statusUsuario;

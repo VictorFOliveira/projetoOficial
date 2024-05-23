@@ -24,7 +24,11 @@ public class ReturnVendaDTO {
 
     private Long id;
     private UsuarioDTO usuario;
+<<<<<<< HEAD
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+=======
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy : HH:mm:ss")
+>>>>>>> 4c20e66 (alterações finais)
     private LocalDateTime dataVenda;
     private List<ReturnItensVendidosDTO> itensVendidos = new ArrayList<>();
     private Double valorTotal;

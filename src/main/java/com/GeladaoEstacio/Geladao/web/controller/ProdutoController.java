@@ -72,6 +72,7 @@ public class ProdutoController {
         return ResponseEntity.status(HttpStatus.OK).body(returnProdutoDTOs);
     }
 
+<<<<<<< HEAD
     @DeleteMapping("/deletarProduto/{id}")
     public ResponseEntity<String> deleteProduto(@PathVariable Long id) {
         try {
@@ -82,6 +83,24 @@ public class ProdutoController {
         }
     }
 
+=======
+    @Operation(summary = "Deletar um produto", description = "Recurso para deletar um produto pelo ID",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Produto deletado com sucesso",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = String.class))),
+                    @ApiResponse(responseCode = "404", description = "Produto não encontrado",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class)))
+            })
+    @DeleteMapping("/deletarProduto/{id}")
+    public ResponseEntity<String> deletarProduto(@PathVariable Long id) {
+        try {
+            produtoService.deletarProdutoPorId(id);
+            return ResponseEntity.status(HttpStatus.OK).body("Produto deletado com sucesso");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+>>>>>>> 4c20e66 (alterações finais)
 }
 
 
