@@ -1,0 +1,8 @@
+.navbar-custom {
+    background-color: #ffc107;
+    color: #000000;
+}
+beer-img {
+    width: 30px; /* largura da imagem */
+    margin-left: 20px; /* margem à esquerda para separar da última opção de navegação */
+}
